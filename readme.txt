@@ -9,13 +9,19 @@ Customise the wordpress login box quickly and easily
 
 == Description ==
 
-A longer description of the plugin here
+A simple way to customise the login screen on your wordpress install. There are a number of advantages to using this plugin:
+
+1) Using a plugin means the changes stay when you upgrade
+2) Clients love finishing touches like this on web design jobs
+3) Chicks dig blokes with groovy login screens
+
+The plugin also inludes a psd template for creating your own login screens so it couldn't be easier.
+
+Finally, there is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
 
 == Installation ==
 
 This section describes how to install the plugin and get it working.
-
-e.g.
 
 1. Upload `the entire contents of the zip file to your plugin directory '/wp-content/plugins/'
 1. Activate the plugin through the 'Plugins' menu in WordPress
