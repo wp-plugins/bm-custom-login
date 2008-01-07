@@ -11,9 +11,9 @@ Customise the wordpress login box quickly and easily
 
 A simple way to customise the login screen on your wordpress install. There are a number of advantages to using this plugin:
 
-1) Using a plugin means the changes stay when you upgrade
-2) Clients love finishing touches like this on web design jobs
-3) Chicks dig blokes with groovy login screens
+1. Using a plugin means the changes stay when you upgrade
+1. Clients love finishing touches like this on web design jobs
+1. Chicks dig blokes with groovy login screens
 
 The plugin also inludes a psd template for creating your own login screens so it couldn't be easier.
 
