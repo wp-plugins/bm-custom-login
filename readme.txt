@@ -2,7 +2,8 @@
 Contributors: BinaryMoon
 Tags: customise, login, customisation
 Requires at least: 2.0.2
-Tested up to: 2.1
+Tested up to: 2.3.1
+Stable Tag:1.0
 
 Customise the wordpress login box quickly and easily
 
