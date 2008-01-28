@@ -1,6 +1,6 @@
 === Plugin Name ===
 Contributors: BinaryMoon
-Tags: customise, login, customisation
+Tags: customise, login, customisation, admin
 Requires at least: 2.0.2
 Tested up to: 2.3.1
 Stable Tag:1.0
