@@ -17,9 +17,9 @@ A simple way to customise the login screen on your wordpress install. There are 
 
 The plugin also inludes a psd template for creating your own login screens so it couldn't be easier.
 
-Finally, there is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
+Thanks go to Kerry Webster - http://www.kerrywebster.com/?p=136 - for his help with the Wordpress 2.5 update and the additional branding features.
 
-Thanks go to <a href="http://www.kerrywebster.com/?p=136">Kerry Webster</a> for her help with the Wordpress 2.5 update and the additional branding features. 
+Finally, there is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/ 
 
 == Installation ==
 
