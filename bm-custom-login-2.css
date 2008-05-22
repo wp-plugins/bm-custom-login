@@ -37,6 +37,7 @@ h1 a {
 */
 #nav {
 	background:url( images/login-bkg-bottom.gif ) center bottom no-repeat;
+	width:380px;
 	height:45px;
 	text-indent: 26px;
 	margin:0px; padding: 0px;
