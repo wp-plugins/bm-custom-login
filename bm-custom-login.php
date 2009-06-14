@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the wordpress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.3
+Version: 1.4
 Author URI: http://www.binarymoon.co.uk/
 */ 
 
@@ -21,16 +21,37 @@ function bm_custom_login() {
 		$versionCheck = 2.5;
 	}
 	
+	$themeVersions = array(
+		array (
+			'min' => 0,
+			'max' => 2.5,
+			'css' => '/bm-custom-login.css',
+		),
+		array (
+			'min' => 2.5,
+			'max' => 2.7,
+			'css' => '/bm-custom-login-2.css',
+		),
+		array (
+			'min' => 2.7,
+			'max' => 5,
+			'css' => '/bm-custom-login-3.css',
+		),
+	);
+	
 	// full plugin path
 	$pluginUrl = get_settings('siteurl') . $pluginPath . plugin_basename(dirname(__FILE__));
 
 	// check which version of wp is being used
-	$blog_version = $blog_version = substr(get_bloginfo('version'), 0, 3);
-	// split style sheets based upon current wp version	
-	If ($blog_version >= $versionCheck) {
-		$pluginUrl .= '/bm-custom-login-2.css';	
-	}else {
-		$pluginUrl .= '/bm-custom-login.css';
+	$blogVersion = substr(get_bloginfo('version'), 0, 3);
+	
+	// split style sheets based upon current wp version
+	foreach ($themeVersions as $version) {
+	
+		if ($blogVersion >= $version['min'] && $blogVersion < $version['max']) {
+			$pluginUrl .= $version['css'];
+		}
+	
 	}
 	
 	echo '<link rel="stylesheet" type="text/css" href="' . $pluginUrl . '" />';
@@ -38,11 +59,15 @@ function bm_custom_login() {
 }
 
 function change_wp_login_url() {
+
     echo bloginfo('url');
+	
 }
 
 function change_wp_login_title() {
+
     echo 'Powered by ' . get_option('blogname');
+	
 }
 
 add_action('login_head', 'bm_custom_login');
