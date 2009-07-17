@@ -22,6 +22,7 @@
 */
 form {
 	color:#fff;
+	-moz-box-shadow:none;
 }
 
 #login label {
@@ -47,10 +48,11 @@ h1 a {
 	height:45px;
 	text-indent: 26px;
 	margin:0px; padding: 0px;
+	text-shadow:none;	
 }
 
-.login #nav a {
-	color:#fff;
+.login #nav a, .login #nav a:hover {
+	color:#fff !important;
 }
 
 #login form .submit input {	

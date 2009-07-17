@@ -50,6 +50,7 @@ function bm_custom_login() {
 	
 		if ($blogVersion >= $version['min'] && $blogVersion < $version['max']) {
 			$pluginUrl .= $version['css'];
+			break;
 		}
 	
 	}
