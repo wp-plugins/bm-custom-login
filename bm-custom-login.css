@@ -1,7 +1,11 @@
-#login {
-	background:url( images/login-bkg-tile.jpg ) center top no-repeat;
+#loginform {
+	border:none;
 }
 
-#login form {
-	background:url( images/login-bkg-bottom.gif ) center bottom no-repeat;
+#login h1 a {
+	width:312px;
+	height:67px;
+	margin-left:7px;
+	border-radius:3px;
+	margin-bottom:10px;
 }

@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: BinaryMoon
 Tags: customise, login, customisation, admin
-Requires at least: 2.0.2
-Tested up to: 2.8
-Stable Tag:1.4
+Requires at least: 3
+Tested up to: 3.2.1
+Stable Tag:1.5
 
 Customise the wordpress login box quickly and easily
 
@@ -17,9 +17,9 @@ A simple way to customise the login screen on your wordpress install. There are 
 
 The plugin also inludes a psd template for creating your own login screens so it couldn't be easier.
 
-Thanks go to Kerry Webster - http://www.kerrywebster.com/?p=136 - for his help with the Wordpress 2.5 update and the additional branding features.
+Finally, there is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
 
-Finally, there is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/ 
+If you're in the market for a WordPress theme then you could checkout my Premium GPL WordPress themes site here: http://prothemedesign.com/
 
 == Installation ==
 
@@ -30,3 +30,8 @@ This section describes how to install the plugin and get it working.
 1. Create a new login background using the handy template provided. Save it as 'login-bkg-tile.jpg'
 1. Upload the new login background image to the /wp-content/plugins/bm-suctom-login/images/
 1. Bask in the glory of your beautiful new login screen
+
+== Changelog ==
+
+1.5 A total rewrite with a new options screen, and a redesigned page login layout
+1.4 Old old old, needs updating
