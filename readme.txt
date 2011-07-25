@@ -3,7 +3,7 @@ Contributors: BinaryMoon
 Tags: customise, login, customisation, admin
 Requires at least: 3
 Tested up to: 3.2.1
-Stable Tag:1.5
+Stable Tag:1.5.1
 
 Customise the wordpress login box quickly and easily
 
@@ -33,5 +33,6 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+1.5.1 Some tweaks to the login layout
 1.5 A total rewrite with a new options screen, and a redesigned page login layout
 1.4 Old old old, needs updating

@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the wordpress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.5
+Version: 1.5.1
 Author URI: http://www.binarymoon.co.uk/
 */
 
@@ -56,20 +56,12 @@ function bm_custom_login () {
 	echo '<link rel="stylesheet" type="text/css" href="' . $pluginUrl . '" />';
 	echo '<style>';
 	
-	// main login background
-	if (!empty ($cl_options['cl_background'])) {
-?>
-	#loginform {
-		background:url(<?php echo $cl_options['cl_background']; ?>) top center no-repeat;
-	}
-<?php
-	}
+	$background = $cl_options['cl_background'];
 	
-	// logo background
-	if (!empty ($cl_options['cl_logoBackground'])) {
+	if (!empty ($background)) {
 ?>
-	#login h1 a {
-		background-image:url(<?php echo $cl_options['cl_logoBackground']; ?>) !important;
+	#login {
+		background:url(<?php echo $background; ?>) top center no-repeat;
 	}
 <?php
 	}
@@ -77,9 +69,28 @@ function bm_custom_login () {
 	// text colour
 	if (!empty ($cl_options['cl_color'])) {
 ?>
-	#loginform,
-	#loginform label {
+	#login,
+	#login label {
 		color:#<?php echo $cl_options['cl_color']; ?>;
+	}
+<?php
+	}
+
+	// text colour
+	if (!empty ($cl_options['cl_backgroundColor'])) {
+?>
+	html,
+	body.login {
+		background:#<?php echo $cl_options['cl_backgroundColor']; ?>;
+	}
+<?php
+	}
+
+	// text colour
+	if (!empty ($cl_options['cl_linkColor'])) {
+?>
+	.login #login a {
+		color:#<?php echo $cl_options['cl_linkColor']; ?> !important;
 	}
 <?php
 	}
@@ -195,19 +206,6 @@ function custom_login_init () {
 	add_settings_section (CL_SECTION, __('Login Screen Settings', CL_LOCAL), 'custom_login_section_validate', CL_PAGE);
 
 	add_settings_field (
-		'cl_logoBackground',
-		__('Logo Background Image Url:', CL_LOCAL),
-		'form_text',
-		CL_PAGE,
-		CL_SECTION,
-		array (
-			'id' => 'cl_logoBackground',
-			'value' => $vars,
-			'default' => '',
-			'description' => __('URL path to image to use for logo background (sized 312px by 67px). You can upload your image with the media uploader', CL_LOCAL),
-		)
-	);
-	add_settings_field (
 		'cl_background',
 		__('Background Image Url:', CL_LOCAL),
 		'form_text',
@@ -236,6 +234,20 @@ function custom_login_init () {
 	);
 
 	add_settings_field (
+		'cl_backgroundColor',
+		__('Page Background Color:', CL_LOCAL),
+		'form_text',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_backgroundColor',
+			'value' => $vars,
+			'default' => 'eeeeee',
+			'description' => __('6 digit hex color code', CL_LOCAL),
+		)
+	);
+	
+	add_settings_field (
 		'cl_color',
 		__('Text Color:', CL_LOCAL),
 		'form_text',
@@ -245,6 +257,20 @@ function custom_login_init () {
 			'id' => 'cl_color',
 			'value' => $vars,
 			'default' => 'ffffff',
+			'description' => __('6 digit hex color code', CL_LOCAL),
+		)
+	);
+	
+	add_settings_field (
+		'cl_linkColor',
+		__('Text Link Color:', CL_LOCAL),
+		'form_text',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_linkColor',
+			'value' => $vars,
+			'default' => '21759B',
 			'description' => __('6 digit hex color code', CL_LOCAL),
 		)
 	);
@@ -261,12 +287,21 @@ function custom_login_validate ($fields) {
 
 	// colour validation
 	$fields['cl_color'] = str_replace ('#', '', $fields['cl_color']);
-	$fields['cl_color'] = str_pad ('f', 6, $fields['cl_color'], STR_PAD_RIGHT);
+	//$fields['cl_color'] = str_pad ('f', 6, $fields['cl_color'], STR_PAD_RIGHT);
 	$fields['cl_color'] = substr ($fields['cl_color'], 0, 6);
+	
+	// background colour validation
+	$fields['cl_backgroundColor'] = str_replace ('#', '', $fields['cl_backgroundColor']);
+	//$fields['cl_backgroundColor'] = str_pad ('f', 6, $fields['cl_backgroundColor'], STR_PAD_RIGHT);
+	$fields['cl_backgroundColor'] = substr ($fields['cl_backgroundColor'], 0, 6);
+	
+	// colour validation
+	$fields['cl_linkColor'] = str_replace ('#', '', $fields['cl_linkColor']);
+	//$fields['cl_linkColor'] = str_pad ('f', 6, $fields['cl_linkColor'], STR_PAD_RIGHT);
+	$fields['cl_linkColor'] = substr ($fields['cl_linkColor'], 0, 6);
 	
 	// clean image urls
 	$fields['cl_background'] = esc_url_raw ($fields['cl_background']);
-	$fields['cl_logoBackground'] = esc_url_raw ($fields['cl_logoBackground']);
 	
 	// sanitize powered by message
 	$fields['cl_powerby'] = esc_html ($fields['cl_powerby']);
