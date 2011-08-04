@@ -40,3 +40,8 @@ body {
 	border-radius:3px;
 	margin-bottom:10px;
 }
+
+.message {
+	color:#000;
+	width:275px;
+}
