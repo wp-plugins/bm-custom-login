@@ -25,10 +25,12 @@ If you're in the market for a WordPress theme then you could checkout my Premium
 
 This section describes how to install the plugin and get it working.
 
-1. Upload `the entire contents of the zip file to your plugin directory '/wp-content/plugins/'
+1. Upload the entire contents of the zip file to your plugin directory '/wp-content/plugins/'
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Create a new login background using the handy template provided. Save it as 'login-bkg-tile.jpg'
-1. Upload the new login background image to the /wp-content/plugins/bm-suctom-login/images/
+1. Create a background image and then upload that to your website as well
+1. Go to the plugins options page in the WordPress admin ('Settings' -> 'Custom Login') and enter the url for you login background image
+1. Change the colors as you desire
+1. Press save
 1. Bask in the glory of your beautiful new login screen
 
 == Changelog ==
