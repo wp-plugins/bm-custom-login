@@ -15,7 +15,9 @@ body {
 	padding-bottom:20px;
 }
 
-#loginform {
+#loginform,
+#lostpasswordform,
+#registerform {
 	-khtml-box-shadow:none;
 	-webkit-box-shadow:none;
 	-moz-box-shadow:none;
