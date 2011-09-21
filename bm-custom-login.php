@@ -81,7 +81,7 @@ function bm_custom_login () {
 ?>
 	html,
 	body.login {
-		background:#<?php echo $cl_options['cl_backgroundColor']; ?>;
+		background:#<?php echo $cl_options['cl_backgroundColor']; ?> !important;
 	}
 <?php
 	}
