@@ -3,7 +3,7 @@ Contributors: BinaryMoon
 Tags: customise, login, customisation, admin
 Requires at least: 3
 Tested up to: 3.2.1
-Stable Tag:1.5.1
+Stable Tag:1.5.2
 
 Customise the wordpress login box quickly and easily
 
