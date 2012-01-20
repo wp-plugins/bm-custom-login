@@ -2,8 +2,8 @@
 Contributors: BinaryMoon
 Tags: customise, login, customisation, admin
 Requires at least: 3
-Tested up to: 3.2.1
-Stable Tag:1.5.2
+Tested up to: 3.3.1
+Stable Tag:1.6
 
 Customise the wordpress login box quickly and easily
 
@@ -15,9 +15,7 @@ A simple way to customise the login screen on your wordpress install. There are 
 1. Clients love finishing touches like this on web design jobs
 1. Chicks dig blokes with groovy login screens
 
-The plugin also inludes a psd template for creating your own login screens so it couldn't be easier.
-
-Finally, there is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
+There is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
 
 If you're in the market for a WordPress theme then you could checkout my Premium GPL WordPress themes site here: http://prothemedesign.com/
 
@@ -35,6 +33,7 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+1.6 Add a background image for the main body of the site
 1.5.1 Some tweaks to the login layout
 1.5 A total rewrite with a new options screen, and a redesigned page login layout
 1.4 Old old old, needs updating

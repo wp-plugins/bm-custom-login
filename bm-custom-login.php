@@ -76,12 +76,25 @@ function bm_custom_login () {
 <?php
 	}
 
-	// text colour
+	$body_styles = array();
+	// background colour
 	if (!empty ($cl_options['cl_backgroundColor'])) {
+		$body_styles[] = '#' . $cl_options['cl_backgroundColor'];
+	}
+	if (!empty ($cl_options['cl_backgroundImage'])) {
+		$body_styles[] = 'url(' . $cl_options['cl_backgroundImage'] . ')';
+		if (!empty($cl_options['cl_backgroundPX'])) { $body_styles[] = $cl_options['cl_backgroundPX']; }
+		if (!empty($cl_options['cl_backgroundPY'])) { $body_styles[] = $cl_options['cl_backgroundPY']; }
+		if (!empty($cl_options['cl_backgroundRepeat'])) { $body_styles[] = $cl_options['cl_backgroundRepeat']; }
+	}
+	
+	if (count($body_styles)) {
 ?>
-	html,
+	html {
+		background:<?php echo implode($body_styles, ' '); ?> !important;
+	}
 	body.login {
-		background:#<?php echo $cl_options['cl_backgroundColor']; ?> !important;
+		background:transparent !important;
 	}
 <?php
 	}
@@ -171,15 +184,6 @@ function custom_login_options () {
 	<div class="icon32" id="icon-options-general"><br /></div>
 	<h2>Custom Login Options</h2>
 	
-	<div class="cl_notice">
-		<h3>More WordPress Goodies &rsaquo;</h3>
-		<p>If you like this plugin then you may also like my themes on <a href="http://prothemedesign.com" target="_blank">Pro Theme Design</a></p>
-		<ul>
-			<li><a href="http://twitter.com/prothemedesign">Pro Theme Design on Twitter</a></li>
-			<li><a href="http://facebook.com/ProThemeDesign">Pro Theme Design on Facebook</a></li>
-		</ul>
-	</div>
-	
 	<form action="options.php" method="post">
 <?php	
 	settings_fields (CL_GROUP);
@@ -189,6 +193,16 @@ function custom_login_options () {
 			<input name="Submit" type="submit" value="<?php esc_attr_e('Save Changes'); ?>" class="button-primary" />	
 		</p>
 	</form>
+	
+	<div class="cl_notice">
+		<h3>More WordPress Goodies &rsaquo;</h3>
+		<p>If you like this plugin then you may also like my themes on <a href="http://prothemedesign.com" target="_blank">Pro Theme Design</a></p>
+		<ul>
+			<li><a href="http://twitter.com/prothemedesign">Pro Theme Design on Twitter</a></li>
+			<li><a href="http://facebook.com/ProThemeDesign">Pro Theme Design on Facebook</a></li>
+		</ul>
+	</div>
+
 </div>
 
 <?php
@@ -248,6 +262,65 @@ function custom_login_init () {
 	);
 	
 	add_settings_field (
+		'cl_backgroundImage',
+		__('Page Background Image:', CL_LOCAL),
+		'form_text',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_backgroundImage',
+			'value' => $vars,
+			'default' => '',
+			'description' => __('Url path to image to use for the page background', CL_LOCAL),
+		)
+	);
+	
+	add_settings_field (
+		'cl_backgroundPY',
+		__('Page Background Vertical Position:', CL_LOCAL),
+		'form_select',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_backgroundPY',
+			'value' => $vars,
+			'default' => 'top',
+			'options' => array ('top', 'center', 'bottom'),
+			'description' => __('Vertical  position of background element', CL_LOCAL),
+		)
+	);
+
+	add_settings_field (
+		'cl_backgroundPX',
+		__('Page Background Horizontal Position:', CL_LOCAL),
+		'form_select',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_backgroundPX',
+			'value' => $vars,
+			'default' => 'center',
+			'options' => array ('left', 'center', 'right'),
+			'description' => __('Horizontal position of background element', CL_LOCAL),
+		)
+	);
+	
+	add_settings_field (
+		'cl_backgroundPRepeat',
+		__('Page Background Repeat:', CL_LOCAL),
+		'form_select',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_backgroundRepeat',
+			'value' => $vars,
+			'default' => 'no-repeat',
+			'options' => array ('no-repeat', 'repeat-x', 'repeat-y', 'repeat'),
+			'description' => __('Background image repeat', CL_LOCAL),
+		)
+	);
+
+	add_settings_field (
 		'cl_color',
 		__('Text Color:', CL_LOCAL),
 		'form_text',
@@ -274,7 +347,7 @@ function custom_login_init () {
 			'description' => __('6 digit hex color code', CL_LOCAL),
 		)
 	);
-	
+
 }
 
 
@@ -287,26 +360,24 @@ function custom_login_validate ($fields) {
 
 	// colour validation
 	$fields['cl_color'] = str_replace ('#', '', $fields['cl_color']);
-	//$fields['cl_color'] = str_pad ('f', 6, $fields['cl_color'], STR_PAD_RIGHT);
 	$fields['cl_color'] = substr ($fields['cl_color'], 0, 6);
 	
 	// background colour validation
 	$fields['cl_backgroundColor'] = str_replace ('#', '', $fields['cl_backgroundColor']);
-	//$fields['cl_backgroundColor'] = str_pad ('f', 6, $fields['cl_backgroundColor'], STR_PAD_RIGHT);
 	$fields['cl_backgroundColor'] = substr ($fields['cl_backgroundColor'], 0, 6);
 	
 	// colour validation
 	$fields['cl_linkColor'] = str_replace ('#', '', $fields['cl_linkColor']);
-	//$fields['cl_linkColor'] = str_pad ('f', 6, $fields['cl_linkColor'], STR_PAD_RIGHT);
 	$fields['cl_linkColor'] = substr ($fields['cl_linkColor'], 0, 6);
 	
 	// clean image urls
 	$fields['cl_background'] = esc_url_raw ($fields['cl_background']);
+	$fields['cl_backgroundImage'] = esc_url_raw ($fields['cl_backgroundImage']);
 	
 	// sanitize powered by message
 	$fields['cl_powerby'] = esc_html ($fields['cl_powerby']);
 	$fields['cl_powerby'] = strip_tags ($fields['cl_powerby']);
-	
+		
 	return $fields;
 	
 }
@@ -343,7 +414,7 @@ function form_text ($args) {
 			$value = $args['default'];				
 		}
 	}
-	
+		
 	if (!empty ($args['description'])) {
 		$description = $args['description'];
 	}
@@ -352,6 +423,56 @@ function form_text ($args) {
 ?>
 	<input type="text" id="<?php echo $id; ?>" name="<?php echo CL_OPTIONS; ?>[<?php echo $id; ?>]" value="<?php echo $value; ?>" class="regular-text"/>
 <?php
+	if (!empty ($description)) {
+		echo '<br /><span class="description">' . $description . '</span>';
+	}
+	
+}
+
+
+/**
+ *
+ * @param type $args 
+ */
+function form_select ($args) {
+	
+	// defaults
+	$id = '';
+	$value = '';
+	$options = array();
+	$description = '';
+	
+	if (!empty($args['options'])) {
+		$options = $args['options'];
+	}
+	
+	if (!empty($args['value'][$args['id']])) {
+		$value = $args['value'][$args['id']];
+	} else {
+		if (!empty ($args['default'])) {
+			$value = $args['default'];				
+		}
+	}
+	
+	if (!empty ($args['description'])) {
+		$description = $args['description'];
+	}
+	
+	$id = $args['id'];
+	
+	// display select box options list
+	if ($options) {
+		echo '<select id="' . $id . '" name="' . CL_OPTIONS . '[' . $id . ']">';
+		foreach ($options as $o) {
+			$selected = '';
+			if ($o == $value) {
+				$selected = ' selected="selected" ';
+			}
+			echo '<option value="' . $o . '" ' . $selected . '>' . $o . '</option>';
+		}
+		echo '</select>';		
+	}
+	
 	if (!empty ($description)) {
 		echo '<br /><span class="description">' . $description . '</span>';
 	}
