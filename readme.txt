@@ -17,7 +17,7 @@ A simple way to customise the login screen on your wordpress install. There are 
 
 There is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
 
-If you're in the market for a WordPress theme then you could checkout my Premium GPL WordPress themes site here: http://prothemedesign.com/
+If you're in the market for a WordPress theme then you could check out my Premium GPL WordPress themes site here: http://prothemedesign.com/
 
 == Installation ==
 
@@ -33,7 +33,7 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
-1.6 Add a background image for the main body of the site
-1.5.1 Some tweaks to the login layout
-1.5 A total rewrite with a new options screen, and a redesigned page login layout
-1.4 Old old old, needs updating
+* 1.6 Add a background image for the main body of the site
+* 1.5.1 Some tweaks to the login layout
+* 1.5 A total rewrite with a new options screen, and a redesigned page login layout
+* 1.4 Old old old, needs updating
