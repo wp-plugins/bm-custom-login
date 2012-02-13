@@ -293,7 +293,7 @@ function custom_login_init () {
 			'id' => 'cl_footertext',
 			'value' => $vars,
 			'default' => '',
-			'description' => _('Appears at the bottom of the admin pages when logged in.', CL_LOCAL),
+			'description' => __('Appears at the bottom of the admin pages when logged in.', CL_LOCAL),
 		)
 	);
 
