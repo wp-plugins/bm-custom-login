@@ -4,9 +4,15 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the wordpress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.6
+Version: 1.6.5
 Author URI: http://www.binarymoon.co.uk/
 */
+
+/**
+ * TODO : add contextual help
+ * TODO : add secondary navigation
+ * TODO : full blown administration customisation
+ */
 
 define ('CL_GROUP', 'custom_login');
 define ('CL_PAGE', 'custom_login_admin');
@@ -108,6 +114,15 @@ function bm_custom_login () {
 <?php
 	}
 	
+	if (!empty ($cl_options['cl_colorShadow'])) {
+?>
+	#login #nav,
+	#login #backtoblog {
+		text-shadow:0 1px 4px #<?php echo $cl_options['cl_colorShadow']; ?>;
+	}
+<?php
+	}
+	
 	echo '</style>';
 }
 
@@ -115,9 +130,12 @@ function bm_custom_login () {
 /**
  * 
  */
-function custom_login_url () {
+function custom_login_url ($url) {
 
-    echo bloginfo ('url');
+	if ($url == 'http://wordpress.org/') {
+		$url = bloginfo ('url');
+	}
+	return $url;
 	
 }
 
@@ -125,17 +143,35 @@ function custom_login_url () {
 /**
  * 
  */
-function custom_login_title () {
+function custom_login_title ($title) {
 	
 	$cl_options = custom_login_get_options ();
 	
-	if (empty ($cl_options['cl_powerby'])) {
-	    echo printf (__('Powered by %s', CL_LOCAL), get_option ('blogname'));
-	} else {
-		echo $cl_options['cl_powerby'];
+	if (!empty ($cl_options['cl_powerby'])) {
+		$title = $cl_options['cl_powerby'];
 	}
 	
+	return $title;
+	
 }
+
+
+/**
+ *
+ * @param <type> $oldText
+ * @return <type>
+ */
+function custom_login_admin_footer_text ($old_text) {
+
+	$cl_options = custom_login_get_options ();
+
+	if ( ! empty( $cl_options['cl_footertext'] ) )  {
+		return $cl_options['cl_footertext'];
+	}
+	
+	return $old_text;
+	
+} 
 
 
 /**
@@ -248,6 +284,20 @@ function custom_login_init () {
 	);
 
 	add_settings_field (
+		'cl_footertext',
+		__('WordPress footer text:', CL_LOCAL),
+		'form_text',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_footertext',
+			'value' => $vars,
+			'default' => '',
+			'description' => _('Appears at the bottom of the admin pages when logged in.', CL_LOCAL),
+		)
+	);
+
+	add_settings_field (
 		'cl_backgroundColor',
 		__('Page Background Color:', CL_LOCAL),
 		'form_text',
@@ -333,7 +383,21 @@ function custom_login_init () {
 			'description' => __('6 digit hex color code', CL_LOCAL),
 		)
 	);
-	
+
+	add_settings_field (
+		'cl_colorShadow',
+		__('Text Shadow Color:', CL_LOCAL),
+		'form_text',
+		CL_PAGE,
+		CL_SECTION,
+		array (
+			'id' => 'cl_colorShadow',
+			'value' => $vars,
+			'default' => '000',
+			'description' => __('6 digit hex color code', CL_LOCAL),
+		)
+	);
+
 	add_settings_field (
 		'cl_linkColor',
 		__('Text Link Color:', CL_LOCAL),
@@ -361,7 +425,11 @@ function custom_login_validate ($fields) {
 	// colour validation
 	$fields['cl_color'] = str_replace ('#', '', $fields['cl_color']);
 	$fields['cl_color'] = substr ($fields['cl_color'], 0, 6);
-	
+
+	// shadow colour validation
+	$fields['cl_colorShadow'] = str_replace ('#', '', $fields['cl_colorShadow']);
+	$fields['cl_colorShadow'] = substr ($fields['cl_colorShadow'], 0, 6);
+
 	// background colour validation
 	$fields['cl_backgroundColor'] = str_replace ('#', '', $fields['cl_backgroundColor']);
 	$fields['cl_backgroundColor'] = substr ($fields['cl_backgroundColor'], 0, 6);
@@ -480,8 +548,10 @@ function form_select ($args) {
 }
 
 
-add_action ('admin_init', 'custom_login_init');
-add_action ('admin_menu', 'custom_login_admin_add_page');
-add_action ('login_head', 'bm_custom_login');
-add_filter ('login_headerurl', 'custom_login_url');
-add_filter ('login_headertitle', 'custom_login_title');
+add_action( 'admin_init', 'custom_login_init' );
+add_action( 'admin_menu', 'custom_login_admin_add_page' );
+add_action( 'login_head', 'bm_custom_login' );
+add_filter( 'login_headerurl', 'custom_login_url' );
+add_filter( 'login_headertitle', 'custom_login_title' );
+add_filter( 'admin_footer_text', 'custom_login_admin_footer_text' );
+
