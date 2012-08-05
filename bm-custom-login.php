@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the wordpress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.6.5
+Version: 1.6.6
 Author URI: http://www.binarymoon.co.uk/
 */
 
@@ -28,12 +28,12 @@ $cl_options = array ();
  * @global type $cl_options
  * @return type 
  */
-function custom_login_get_options () {
+function custom_login_get_options() {
 	
 	global $cl_options;
 	
-	if (empty ($cl_options)) {
-		$cl_options = get_option (CL_OPTIONS);
+	if ( empty( $cl_options ) ) {
+		$cl_options = get_option( CL_OPTIONS );
 	}
 	
 	return $cl_options;
@@ -130,12 +130,9 @@ function bm_custom_login () {
 /**
  * 
  */
-function custom_login_url ($url) {
+function custom_login_url( $url ) {
 
-	if ($url == 'http://wordpress.org/') {
-		$url = bloginfo ('url');
-	}
-	return $url;
+    return get_home_url();
 	
 }
 
@@ -145,7 +142,7 @@ function custom_login_url ($url) {
  */
 function custom_login_title ($title) {
 	
-	$cl_options = custom_login_get_options ();
+	$cl_options = custom_login_get_options();
 	
 	if (!empty ($cl_options['cl_powerby'])) {
 		$title = $cl_options['cl_powerby'];

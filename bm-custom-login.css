@@ -3,6 +3,10 @@ body {
 	height:100%;
 }
 
+body.login {
+	border-top:1px solid #fff;
+}
+
 #login {
 	-webkit-border-radius:5px;
 	-khtml-border-radius:5px;
