@@ -12,12 +12,13 @@ body.login {
 	-khtml-border-radius:5px;
 	-moz-border-radius:5px;
 	border-radius:5px;
-	-webkit-box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;
-	-khtml-box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;
-	-moz-box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;
-	box-shadow:rgba(200,200,200,0.7) 0 4px 10px -1px;
+	-webkit-box-shadow:rgba(0,0,0,0.7) 0 4px 10px -1px;
+	-khtml-box-shadow:rgba(0,0,0,0.7) 0 4px 10px -1px;
+	-moz-box-shadow:rgba(0,0,0,0.7) 0 4px 10px -1px;
+	box-shadow:rgba(0,0,0,0.7) 0 4px 10px -1px;
 	padding:0 0 20px 0;
 	margin:7em auto 0 auto;
+	background:#f9f9f9;
 }
 
 #loginform,
