@@ -2,9 +2,9 @@
 /*
 Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
-Description: Display custom images on the wordpress login screen. Useful for branding.
+Description: Display custom images on the WordPress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.7
+Version: 1.7.1
 Author URI: http://www.binarymoon.co.uk/
 */
 
@@ -53,21 +53,13 @@ class BMCustomLogin {
 
 
 	/**
-	 *
+	 * Display the custom login info
 	 */
 	function custom_login() {
 
 		$options = $this->custom_login_get_options();
 
-		// default wordpress mu plugin path
-		$pluginPath = '/wp-content/mu-plugins/';
-
-		// is it wordpress mu or wordpress normal?
-		if ( ! is_dir( $pluginPath ) ) {
-			$pluginPath = '/wp-content/plugins/';
-		}
-
-		$pluginUrl = get_option( 'siteurl' ) . $pluginPath . plugin_basename( dirname( __FILE__ ) ) . '/bm-custom-login.css';
+		$pluginUrl = plugin_dir_url( __FILE__ ) . 'bm-custom-login.css';
 
 		// output styles
 		echo '<link rel="stylesheet" type="text/css" href="' . esc_url( $pluginUrl ) . '" />';

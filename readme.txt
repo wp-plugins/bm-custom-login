@@ -3,13 +3,13 @@ Contributors: BinaryMoon
 Tags: customise, login, customisation, admin, customization
 Requires at least: 3.5
 Tested up to: 4.1
-Stable Tag:1.7
+Stable Tag:1.7.1
 
 Customise the wordpress login box quickly and easily
 
 == Description ==
 
-A simple way to customise the login screen on your wordpress install. There are a number of advantages to using this plugin:
+A simple way to customise the login screen on your WordPress install. There are a number of advantages to using this plugin:
 
 1. Using a plugin means the changes stay when you upgrade
 1. It's an easy way to add a little polish to your web design jobs
@@ -32,6 +32,7 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+* 1.7.1 make plugin path more flexible for people who move wp-content directory
 * 1.7 improve security, and massively improve the admin page
 * 1.6.5 add a shadow colour option, improve login url support, change admin footer text
 * 1.6 Add a background image for the main body of the site
