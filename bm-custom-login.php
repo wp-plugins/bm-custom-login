@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the WordPress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.7.1
+Version: 1.7.3
 Author URI: http://www.binarymoon.co.uk/
 */
 
@@ -80,7 +80,7 @@ class BMCustomLogin {
 ?>
 		#login,
 		#login label {
-			color:<?php echo $options['cl_color']; ?>;
+			color:<?php echo $this->sanitize_hex_color( $options['cl_color'] ); ?>;
 		}
 <?php
 		}
@@ -89,18 +89,22 @@ class BMCustomLogin {
 
 		// background colour
 		if ( ! empty( $options['cl_backgroundColor'] ) ) {
-			$body_styles[] = $options['cl_backgroundColor'];
+			$body_styles[] = $this->sanitize_hex_color( $options['cl_backgroundColor'] );
 		}
+
 		if ( ! empty( $options['cl_backgroundImage'] ) ) {
 			$body_styles[] = 'url(' . esc_url( $options['cl_backgroundImage'] ) . ')';
+
 			if ( ! empty( $options['cl_backgroundPX'] ) ) {
-				$body_styles[] = $options['cl_backgroundPX'];
+				$body_styles[] = esc_attr( $options['cl_backgroundPX'] );
 			}
+
 			if ( ! empty( $options['cl_backgroundPY'] ) ) {
-				$body_styles[] = $options['cl_backgroundPY'];
+				$body_styles[] = esc_attr( $options['cl_backgroundPY'] );
 			}
+
 			if ( ! empty( $options['cl_backgroundRepeat'] ) ) {
-				$body_styles[] = $options['cl_backgroundRepeat'];
+				$body_styles[] = esc_attr( $options['cl_backgroundRepeat'] );
 			}
 		}
 
@@ -119,7 +123,7 @@ class BMCustomLogin {
 		if ( ! empty( $options['cl_linkColor'] ) ) {
 ?>
 		.login #login a {
-			color:<?php echo $options['cl_linkColor']; ?> !important;
+			color:<?php echo $this->sanitize_hex_color( $options['cl_linkColor'] ); ?> !important;
 		}
 <?php
 		}
@@ -128,7 +132,7 @@ class BMCustomLogin {
 ?>
 		#login #nav,
 		#login #backtoblog {
-			text-shadow:0 1px 6px <?php echo $options['cl_colorShadow']; ?>;
+			text-shadow:0 1px 6px <?php echo $this->sanitize_hex_color( $options['cl_colorShadow'] ); ?>;
 		}
 <?php
 		}
@@ -173,10 +177,10 @@ class BMCustomLogin {
 		$options = $this->custom_login_get_options();
 
 		if ( ! empty( $options['cl_footertext'] ) )  {
-			return $options['cl_footertext'];
+			return wp_kses_post( $options['cl_footertext'] );
 		}
 
-		return esc_html( $old_text );
+		return wp_kses_post( $old_text );
 
 	}
 
@@ -720,6 +724,7 @@ class BMCustomLogin {
 		}
 
 		return null;
+
 	}
 }
 
