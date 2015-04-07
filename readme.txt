@@ -1,18 +1,18 @@
 === Plugin Name ===
 Contributors: BinaryMoon
-Tags: customise, login, customisation, admin, customization
+Tags: customise, customize, login, customisation, customization, admin
 Requires at least: 3.5
 Tested up to: 4.1
-Stable Tag:1.7.2
+Stable Tag:1.7.4
 
-Customise the wordpress login box quickly and easily
+Customise the WordPress login box quickly and easily
 
 == Description ==
 
 A simple way to customise the login screen on your WordPress install. There are a number of advantages to using this plugin:
 
 1. Using a plugin means the changes stay when you upgrade
-1. It's an easy way to add a little polish to your web design jobs
+1. It's an easy way to add a little polish to your freelance web design jobs
 
 There is a flickr group for showing off your custom logins, or for getting inspiration for your own creations. You can see it on flickr - http://www.flickr.com/groups/bm-custom-login/
 
@@ -32,6 +32,7 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+* 1.7.4 make link colour affect login button to ensure things remain harmonious
 * 1.7.3 improve sanitization/ security throughout
 * 1.7.2 encode footer html properly so that html actually works - and is safe
 * 1.7.1 make plugin path more flexible for people who move wp-content directory

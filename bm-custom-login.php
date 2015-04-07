@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the WordPress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.7.3
+Version: 1.7.4
 Author URI: http://www.binarymoon.co.uk/
 */
 
@@ -121,9 +121,23 @@ class BMCustomLogin {
 
 		// text colour
 		if ( ! empty( $options['cl_linkColor'] ) ) {
+			$this->readable_colour( '000' );
+			$this->readable_colour( 'fff' );
+			$this->readable_colour( 'aaa' );
 ?>
 		.login #login a {
 			color:<?php echo $this->sanitize_hex_color( $options['cl_linkColor'] ); ?> !important;
+		}
+		.login #login a:hover {
+			color:<?php echo $this->adjust_brightness( $options['cl_linkColor'], -30 ); ?> !important;
+		}
+		.submit #wp-submit {
+			background:<?php echo $this->sanitize_hex_color( $options['cl_linkColor'] ); ?>;
+			border-color:<?php echo $this->adjust_brightness( $options['cl_linkColor'], -60 ); ?>;
+			color:<?php echo $this->readable_colour( $options['cl_linkColor'] ); ?>
+		}
+		.submit #wp-submit:hover {
+			background:<?php echo $this->adjust_brightness( $options['cl_linkColor'], -30 ); ?>;
 		}
 <?php
 		}
@@ -724,6 +738,61 @@ class BMCustomLogin {
 		}
 
 		return null;
+
+	}
+
+	/**
+	 * adjust brightness of a colour
+	 * not the best way to do it but works well enough here
+	 *
+	 * @param type $hex
+	 * @param type $steps
+	 * @return type
+	 */
+	function adjust_brightness( $hex, $steps ) {
+
+		$steps = max( -255, min( 255, $steps ) );
+
+		$hex = str_replace( '#', '', $hex );
+		if ( strlen( $hex ) == 3 ) {
+			$hex = str_repeat( substr( $hex, 0, 1 ), 2 ) . str_repeat( substr( $hex, 1, 1 ), 2 ) . str_repeat( substr( $hex, 2, 1), 2 );
+		}
+
+		$color_parts = str_split( $hex, 2 );
+		$return = '#';
+
+		foreach ( $color_parts as $color ) {
+			$color = hexdec( $color );
+			$color = max( 0, min( 255, $color + $steps ) );
+			$return .= str_pad( dechex( $color ), 2, '0', STR_PAD_LEFT );
+		}
+
+		return $this->sanitize_hex_color( $return );
+
+	}
+
+
+	/**
+	 * Calculate whether black or white is best for readability based upon the brightness of specified colour
+	 *
+	 * @param type $hex
+	 */
+	function readable_colour( $hex ) {
+
+		$hex = str_replace( '#', '', $hex );
+		if ( strlen( $hex ) == 3 ) {
+			$hex = str_repeat( substr( $hex, 0, 1 ), 2 ) . str_repeat( substr( $hex, 1, 1 ), 2 ) . str_repeat( substr( $hex, 2, 1), 2 );
+		}
+
+		$color_parts = str_split( $hex, 2 );
+
+		$brightness = ( hexdec( $color_parts[0] ) * 0.299 ) + ( hexdec( $color_parts[1] ) * 0.587 ) + ( hexdec( $color_parts[2] ) * 0.114 );
+
+		if ( $brightness > 128 ) {
+			return '#000';
+		} else {
+			return '#fff';
+		}
 
 	}
 }

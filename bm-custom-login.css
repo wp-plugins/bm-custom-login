@@ -57,6 +57,15 @@ body.login {
 	text-decoration:none;
 }
 
+.submit #wp-submit {
+	-webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.3),0 1px 0 rgba(0,0,0,.15);
+	box-shadow: inset 0 1px 0 rgba(255,255,255,.3),0 1px 0 rgba(0,0,0,.15);
+}
+
+input[type=checkbox]:checked:before {
+	color:#000;
+}
+
 .message {
 	color:#000;
 	width:275px;
