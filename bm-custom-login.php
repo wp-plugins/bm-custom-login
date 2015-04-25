@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the WordPress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.7.4
+Version: 1.8
 Author URI: http://www.binarymoon.co.uk/
 */
 
@@ -121,9 +121,6 @@ class BMCustomLogin {
 
 		// text colour
 		if ( ! empty( $options['cl_linkColor'] ) ) {
-			$this->readable_colour( '000' );
-			$this->readable_colour( 'fff' );
-			$this->readable_colour( 'aaa' );
 ?>
 		.login #login a {
 			color:<?php echo $this->sanitize_hex_color( $options['cl_linkColor'] ); ?> !important;
@@ -151,7 +148,45 @@ class BMCustomLogin {
 <?php
 		}
 
+		// custom css
+		if ( ! empty( $options['cl_customCSS'] ) ) {
+			$css = $this->sanitize_css( $options['cl_customCSS'] );
+			echo str_replace( array( "\n","\r","\t" ), '', $css );
+		}
+
 		echo '</style>';
+
+	}
+
+
+	/**
+	 * sanitize user entered css
+	 * as seen here: http://wordpress.stackexchange.com/questions/53970/sanitize-user-entered-css
+	 *
+	 * @param type $css
+	 */
+	function sanitize_css( $css ) {
+
+		if ( ! class_exists( 'csstidy' ) ) {
+			include_once( 'csstidy/class.csstidy.php' );
+		}
+
+		$csstidy = new csstidy();
+		$csstidy->set_cfg( 'remove_bslash', false );
+		$csstidy->set_cfg( 'compress_colors', false );
+		$csstidy->set_cfg( 'compress_font-weight', false );
+		$csstidy->set_cfg( 'discard_invalid_properties', true );
+		$csstidy->set_cfg( 'merge_selectors', false );
+		$csstidy->set_cfg( 'remove_last_;', false );
+		$csstidy->set_cfg( 'css_level', 'CSS3.0' );
+
+		$css = preg_replace( '/\\\\([0-9a-fA-F]{4})/', '\\\\\\\\$1', $css );
+		$css = wp_kses_split( $css, array(), array() );
+
+		$csstidy->parse( $css );
+
+		return $csstidy->print->plain();
+
 	}
 
 
@@ -442,6 +477,21 @@ class BMCustomLogin {
 			)
 		);
 
+		add_settings_field (
+			'cl_customCSS',
+			__( 'Custom CSS:', 'custom_login' ),
+			array( $this, 'form_textarea' ),
+			CL_PAGE,
+			CL_SECTION,
+			array (
+				'id' => 'cl_customCSS',
+				'value' => $vars,
+				'default' => '',
+				'description' => '',
+			)
+		);
+
+
 	}
 
 
@@ -460,6 +510,7 @@ class BMCustomLogin {
 		$fields['cl_background'] = esc_url_raw( $fields['cl_background'] );
 		$fields['cl_backgroundImage'] = esc_url_raw( $fields['cl_backgroundImage'] );
 		$fields['cl_powerby'] = strip_tags( esc_html( $fields['cl_powerby'] ) );
+		$fields['cl_customCSS'] = $this->sanitize_css( $fields['cl_customCSS'] );
 
 		return $fields;
 
@@ -486,7 +537,6 @@ class BMCustomLogin {
 
 		$id = '';
 		$value = '';
-		$description = '';
 
 		// set values
 		if ( ! empty ($args['value'][$args['id']] ) ) {
@@ -497,17 +547,43 @@ class BMCustomLogin {
 			}
 		}
 
-		if ( ! empty ($args['description'])) {
-			$description = $args['description'];
-		}
-
 		$id = $args['id'];
 ?>
 	<input type="text" id="<?php echo $id; ?>" name="<?php echo CL_OPTIONS; ?>[<?php echo $id; ?>]" value="<?php echo esc_attr( $value ); ?>" class="regular-text" />
 <?php
-		if (!empty ($description)) {
-			echo '<br /><span class="description">' . $description . '</span>';
+		if ( ! empty ($args['description'])) {
+			echo '<br /><span class="description">' . $args['description'] . '</span>';
 		}
+
+	}
+
+
+	/**
+	 *
+	 * @param type $args
+	 */
+	function form_textarea( $args ) {
+
+		$id = '';
+		$value = '';
+
+		// set values
+		if ( ! empty ($args['value'][$args['id']] ) ) {
+			$value = $args['value'][$args['id']];
+		} else {
+			if (!empty ($args['default'])) {
+				$value = $args['default'];
+			}
+		}
+
+		$id = $args['id'];
+
+		if ( ! empty ( $args['description'] ) ) {
+			echo '<p class="description">' . $args['description'] . '</p>';
+		}
+?>
+	<textarea type="text" rows="10" cols="50" id="<?php echo $id; ?>" name="<?php echo CL_OPTIONS; ?>[<?php echo $id; ?>]" class="large-text code"><?php echo esc_textarea( $value ); ?></textarea>
+<?php
 
 	}
 
@@ -521,7 +597,6 @@ class BMCustomLogin {
 		$id = '';
 		$value = '';
 		$options = array();
-		$description = '';
 
 		if (!empty($args['options'])) {
 			$options = $args['options'];
@@ -535,18 +610,14 @@ class BMCustomLogin {
 			}
 		}
 
-		if (!empty ($args['description'])) {
-			$description = $args['description'];
-		}
-
 		$id = $args['id'];
 
 		// display select box options list
-		if ($options) {
+		if ( $options ) {
 			echo '<select id="' . $id . '" name="' . CL_OPTIONS . '[' . $id . ']">';
-			foreach ($options as $o) {
+			foreach ( $options as $o ) {
 				$selected = '';
-				if ($o == $value) {
+				if ( $o == $value ) {
 					$selected = ' selected="selected" ';
 				}
 				echo '<option value="' . $o . '" ' . $selected . '>' . $o . '</option>';
@@ -554,8 +625,8 @@ class BMCustomLogin {
 			echo '</select>';
 		}
 
-		if ( ! empty( $description ) ) {
-			echo '<br /><span class="description">' . $description . '</span>';
+		if ( ! empty ( $args['description'] ) ) {
+			echo '<br /><span class="description">' . $args['description'] . '</span>';
 		}
 
 	}
