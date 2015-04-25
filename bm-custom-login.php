@@ -479,7 +479,7 @@ class BMCustomLogin {
 
 		add_settings_field (
 			'cl_customCSS',
-			__( 'Custom CSS:', 'custom_login' ),
+			__( '<strong>Advanced<strong> - Custom CSS:', 'custom_login' ),
 			array( $this, 'form_textarea' ),
 			CL_PAGE,
 			CL_SECTION,
