@@ -707,7 +707,12 @@ class BMCustomLogin {
 	 * @param type $hook
 	 */
 	function enqueue_color_picker() {
-
+		$screen = get_current_screen();
+		
+		if ('settings_page_custom_login_admin' !== $screen->id) {
+			return;
+		}
+		
 		// Add the color picker css file
 		wp_enqueue_style( 'wp-color-picker' );
 		wp_enqueue_script( 'wp-color-picker' );
@@ -722,6 +727,11 @@ class BMCustomLogin {
 	 *
 	 */
 	function admin_foot_script() {
+		$screen = get_current_screen();
+		
+		if ('settings_page_custom_login_admin' !== $screen->id) {
+			return;
+		}
 ?>
 	<script>
 		(function( $ ) {
