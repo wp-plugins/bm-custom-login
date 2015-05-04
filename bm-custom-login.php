@@ -4,7 +4,7 @@ Plugin Name: BM Custom Login
 Plugin URI: http://www.binarymoon.co.uk/projects/bm-custom-login/
 Description: Display custom images on the WordPress login screen. Useful for branding.
 Author: Ben Gillbanks
-Version: 1.8
+Version: 1.8.1
 Author URI: http://www.binarymoon.co.uk/
 */
 
