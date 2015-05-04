@@ -3,7 +3,7 @@ Contributors: BinaryMoon
 Tags: customise, customize, login, customisation, customization, admin
 Requires at least: 3.5
 Tested up to: 4.2
-Stable Tag:1.8.1
+Stable Tag:1.8.2
 
 Customise the WordPress login box quickly and easily
 
@@ -32,6 +32,7 @@ This section describes how to install the plugin and get it working.
 
 == Changelog ==
 
+* 1.8.2 Stop color picker from being loaded on every page in the admin - thanks to mgsisk for the report and code fix
 * 1.8.1 Update CSS Tidy files to latest version
 * 1.8 New Feature: Custom CSS - now you can edit everything! :)
 * 1.7.4 make link colour affect login button to ensure things remain harmonious
